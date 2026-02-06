@@ -1,0 +1,85 @@
+/* Main Design Tokens */
+:root {
+    --primary-gradient: linear-gradient(135deg, #007BFF 0%, #0056b3 100%);
+    --bg-light: #f8f9fa;
+    --text-light: #212529;
+    --card-bg-light: #ffffff;
+    
+    --bg-dark: #121212;
+    --text-dark: #e0e0e0;
+    --card-bg-dark: #1e1e1e;
+    --border-dark: #333333;
+}
+
+/* Light Mode (Default) */
+body {
+    background-color: var(--bg-light);
+    color: var(--text-light);
+    font-family: 'Inter', sans-serif;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Dark Mode Class */
+body.dark-mode {
+    background-color: var(--bg-dark);
+    color: var(--text-dark);
+}
+
+.dark-mode .card {
+    background-color: var(--card-bg-dark);
+    border-color: var(--border-dark);
+    color: var(--text-dark);
+}
+
+.dark-mode .navbar {
+    background-color: #1a1a1a !important;
+    border-bottom: 1px solid var(--border-dark);
+}
+
+.dark-mode .form-control, .dark-mode .form-select {
+    background-color: #2c2c2c;
+    border-color: var(--border-dark);
+    color: var(--text-dark);
+}
+
+.dark-mode .form-control:focus, .dark-mode .form-select:focus {
+    background-color: #333333;
+    color: #fff;
+}
+
+/* Custom Gradient Button */
+.btn-primary-gradient {
+    background: var(--primary-gradient);
+    border: none;
+    color: white;
+}
+
+.btn-primary-gradient:hover {
+    filter: brightness(1.1);
+    color: white;
+}
+
+/* Dashboard Summary Cards */
+.summary-card {
+    border-radius: 15px;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+}
+
+.summary-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Auth Pages */
+.auth-container {
+    max-width: 400px;
+    margin: 50px auto;
+}
+
+/* OTP Input */
+.otp-input {
+    letter-spacing: 10px;
+    font-size: 24px;
+    text-align: center;
+}

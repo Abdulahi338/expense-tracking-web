@@ -1,0 +1,24 @@
+# Expense Tracking System - .htaccess
+
+# Enable Rewrite Engine
+RewriteEngine On
+
+# Set Base URL
+RewriteBase /expense-tracking/
+
+# Prevent directory browsing
+Options -Indexes
+
+# Security headers
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+</IfModule>
+
+# Block access to sensitive files
+<FilesMatch "\.(env|git|sql|log|txt|md)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
