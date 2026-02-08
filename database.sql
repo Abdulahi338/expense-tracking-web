@@ -1,54 +1,47 @@
--- Database Export for Expense Tracking System
-CREATE DATABASE IF NOT EXISTS expense_tracker;
-USE expense_tracker;
+-- Database: expense_tracker_db
 
--- Users Table
 CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50) NOT NULL UNIQUE,
+    username VARCHAR(50) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
-    password_hash VARCHAR(255) NOT NULL,
-    otp_code VARCHAR(6) DEFAULT NULL,
-    otp_expiry DATETIME DEFAULT NULL,
-    reset_token VARCHAR(64) DEFAULT NULL,
-    reset_expiry DATETIME DEFAULT NULL,
-    is_verified BOOLEAN DEFAULT FALSE,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('user', 'admin') DEFAULT 'user',
+    otp VARCHAR(6) DEFAULT NULL,
+    is_verified TINYINT(1) DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB;
+);
 
--- Categories Table
 CREATE TABLE IF NOT EXISTS categories (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(50) NOT NULL,
-    type ENUM('income', 'expense') NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB;
+    name VARCHAR(50) NOT NULL UNIQUE,
+    type ENUM('income', 'expense') NOT NULL
+);
 
--- Transactions Table
-CREATE TABLE IF NOT EXISTS transactions (
+CREATE TABLE IF NOT EXISTS income (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
-    category_id INT NOT NULL,
-    amount DECIMAL(10, 2) NOT NULL,
-    type ENUM('income', 'expense') NOT NULL,
+    amount DECIMAL(10,2) NOT NULL,
+    source VARCHAR(100) NOT NULL,
+    date DATE NOT NULL,
     description TEXT,
-    transaction_date DATE NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE
-) ENGINE=InnoDB;
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
 
--- Seed Default Categories
-INSERT INTO categories (name, type) VALUES 
-('Salary', 'income'),
-('Freelance', 'income'),
-('Investment', 'income'),
-('Other Income', 'income'),
-('Food', 'expense'),
-('Rent', 'expense'),
-('Utilities', 'expense'),
-('Transport', 'expense'),
-('Entertainment', 'expense'),
-('Health', 'expense'),
-('Shopping', 'expense'),
-('Other Expense', 'expense');
+CREATE TABLE IF NOT EXISTS expenses (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    amount DECIMAL(10,2) NOT NULL,
+    category VARCHAR(100) NOT NULL,
+    date DATE NOT NULL,
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS password_resets (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(100) NOT NULL,
+    token VARCHAR(255) NOT NULL,
+    expires_at DATETIME NOT NULL
+);
