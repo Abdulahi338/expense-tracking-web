@@ -1,85 +1,136 @@
-/* Main Design Tokens */
+/* public/assets/css/style.css */
+
 :root {
-    --primary-gradient: linear-gradient(135deg, #007BFF 0%, #0056b3 100%);
-    --bg-light: #f8f9fa;
-    --text-light: #212529;
-    --card-bg-light: #ffffff;
-    
-    --bg-dark: #121212;
-    --text-dark: #e0e0e0;
-    --card-bg-dark: #1e1e1e;
-    --border-dark: #333333;
+    --primary-blue: #6366f1;
+    --primary-purple: #a855f7;
+    --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+    /* Premium Aurora Gradient: Indigo -> Purple -> Pink */
+    --light-bg: #f8fafc;
+    --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    --border-radius: 12px;
+
+    /* Dark Mode Tokens */
+    --dark-bg: #0f172a;
+    --dark-card: #1e293b;
+    --dark-text: #f1f5f9;
 }
 
-/* Light Mode (Default) */
 body {
-    background-color: var(--bg-light);
-    color: var(--text-light);
-    font-family: 'Inter', sans-serif;
-    transition: background-color 0.3s, color 0.3s;
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background-color: var(--light-bg);
+    color: #334155;
+    transition: all 0.3s ease;
 }
 
-/* Dark Mode Class */
-body.dark-mode {
-    background-color: var(--bg-dark);
-    color: var(--text-dark);
+/* Sidebar Styling - Modern Gradient */
+.sidebar {
+    height: 100vh;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: var(--primary-gradient);
+    padding-top: 20px;
+    z-index: 1000;
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.05);
+    color: white;
 }
 
-.dark-mode .card {
-    background-color: var(--card-bg-dark);
-    border-color: var(--border-dark);
-    color: var(--text-dark);
+.sidebar h4 {
+    color: white !important;
 }
 
-.dark-mode .navbar {
-    background-color: #1a1a1a !important;
-    border-bottom: 1px solid var(--border-dark);
+.sidebar hr {
+    background-color: rgba(255, 255, 255, 0.2);
+    opacity: 1;
 }
 
-.dark-mode .form-control, .dark-mode .form-select {
-    background-color: #2c2c2c;
-    border-color: var(--border-dark);
-    color: var(--text-dark);
+.main-content {
+    margin-left: 250px;
+    padding: 30px;
 }
 
-.dark-mode .form-control:focus, .dark-mode .form-select:focus {
-    background-color: #333333;
-    color: #fff;
+.nav-link {
+    color: rgba(255, 255, 255, 0.8);
+    padding: 12px 20px;
+    margin: 4px 15px;
+    border-radius: 8px;
+    transition: all 0.2s;
 }
 
-/* Custom Gradient Button */
+.nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.nav-link.active {
+    background-color: white !important;
+    color: var(--primary-blue) !important;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Global Card & Component Styling */
+.card {
+    border: none;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    transition: transform 0.2s;
+}
+
 .btn-primary-gradient {
     background: var(--primary-gradient);
     border: none;
     color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 500;
 }
 
 .btn-primary-gradient:hover {
-    filter: brightness(1.1);
+    opacity: 0.9;
+    transform: translateY(-1px);
     color: white;
 }
 
-/* Dashboard Summary Cards */
-.summary-card {
-    border-radius: 15px;
-    border: none;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    transition: transform 0.2s;
+.header-gradient {
+    background: var(--primary-gradient);
+    color: white;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    margin-bottom: 30px;
+    box-shadow: 0 10px 20px rgba(0, 123, 255, 0.2);
 }
 
-.summary-card:hover {
-    transform: translateY(-5px);
+/* Dark Mode Logic */
+body.dark-mode {
+    background-color: var(--dark-bg);
+    color: var(--dark-text);
 }
 
-/* Auth Pages */
-.auth-container {
-    max-width: 400px;
-    margin: 50px auto;
+.dark-mode .card {
+    background-color: var(--dark-card);
+    color: var(--dark-text);
 }
 
-/* OTP Input */
-.otp-input {
-    letter-spacing: 10px;
-    font-size: 24px;
-    text-align: center;
+.dark-mode .table {
+    color: var(--dark-text);
+}
+
+.dark-mode .table-light {
+    background-color: #334155;
+    color: white;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
 }

@@ -1,0 +1,63 @@
+# Jira Task List - Expense Tracking & Personal Finance System
+
+## Epic: Core System Development
+1. [TASK] Database Schema Design and Setup
+   - Summary: Create the relational database structure for users, roles, income, expenses, and categories.
+   - Status: DONE
+
+2. [TASK] User Authentication System
+   - Summary: Implement secure login, signup, and logout functionality with password hashing.
+   - Status: DONE
+
+## Epic: Role-Based Access Control (RBAC) 
+3. [TASK] User Role Implementation
+   - Summary: Add 'admin' and 'user' roles to the database and session logic.
+   - Status: DONE
+
+4. [TASK] Unauthorized Access Security (Gatekeeper)
+   - Summary: Create check_admin() and check_login() helper functions to protect routes.
+   - Status: DONE
+
+## Epic: Financial Management Modules
+5. [TASK] Income Tracking Module
+   - Summary: Build CRUD operations for adding and deleting income sources.
+   - Status: DONE
+
+6. [TASK] Expense Tracking with Balance Check
+   - Summary: Build CRUD for expenses and implement transaction denial logic for overspending.
+   - Status: DONE
+
+7. [TASK] System-wide Category Management
+   - Summary: Enable admins to create/edit/delete categories that appear in user dropdowns.
+   - Status: DONE
+
+## Epic: Admin Infrastructure
+8. [TASK] Admin Dashboard User Management
+   - Summary: Create a panel for admins to view all users, change roles, and delete accounts.
+   - Status: DONE
+
+9. [TASK] Master Category Control Panel
+   - Summary: Implement a centralized interface for global category management.
+   - Status: DONE
+
+## Epic: UI/UX Refinement
+10. [STORY] Premium Visual Design
+    - Summary: Apply "Sunset Aurora" gradients, Soft UI card shadows, and modern typography (Inter).
+    - Status: DONE
+
+11. [TASK] Dark Mode Persistence
+    - Summary: Implement a JS-based theme toggle with localStorage for setting persistence.
+    - Status: DONE
+
+12. [TASK] Form Persistence and UX Polish
+    - Summary: Ensure form data is retained after validation errors to improve user experience.
+    - Status: DONE
+
+## Future Backlog
+13. [STORY] Financial Reporting & Graphs
+    - Summary: Integrate Chart.js to visualize spending patterns on the user dashboard.
+    - Status: TO-DO
+
+14. [TASK] Email Integration (PHPMailer)
+    - Summary: Set up actual SMTP for OTP verification and password reset emails.
+    - Status: TO-DO
