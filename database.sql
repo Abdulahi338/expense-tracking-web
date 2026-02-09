@@ -1,6 +1,6 @@
 -- Database: expense_tracker_db
 
-CREATE TABLE IF NOT EXISTS users (
+CREATE TABLE  users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
@@ -11,13 +11,13 @@ CREATE TABLE IF NOT EXISTS users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE IF NOT EXISTS categories (
+CREATE TABLE categories (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50) NOT NULL UNIQUE,
     type ENUM('income', 'expense') NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS income (
+CREATE TABLE  income (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     amount DECIMAL(10,2) NOT NULL,
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS income (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS expenses (
+CREATE TABLE  expenses (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     amount DECIMAL(10,2) NOT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS expenses (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS password_resets (
+CREATE TABLE  password_resets (
     id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(100) NOT NULL,
     token VARCHAR(255) NOT NULL,
