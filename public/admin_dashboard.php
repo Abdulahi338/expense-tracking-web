@@ -194,7 +194,7 @@ endwhile; ?>
                 </div>
             </div>
 
-            <!-- Category Management -->
+            <!-- Category create -->
             <div class="col-lg-4">
                 <div class="card shadow-sm">
                     <div class="card-header bg-white py-3">
