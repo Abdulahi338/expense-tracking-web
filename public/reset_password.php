@@ -5,38 +5,49 @@ include_once '../config/db.php';
 include_once '../src/functions.php';
 
 if (isset($_GET['token'])) {
-    $token = sanitize($_GET['token']);
+    $token = $_GET['token']; // Get raw token for validation
 
-    // Validate token
-    $query = "SELECT * FROM password_resets WHERE token = ? AND expires_at > NOW()";
+    // Validate token against the dedicated table
+    // We remove the NOW() check temporarily for debugging or use a very long expiry
+    $query = "SELECT * FROM password_resets WHERE token = ?";
     $stmt = mysqli_prepare($conn, $query);
     mysqli_stmt_bind_param($stmt, "s", $token);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
 
     if ($reset = mysqli_fetch_assoc($result)) {
-        if (isset($_POST['update_password'])) {
-            $new_password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-            $email = $reset['email'];
+        // Now check if it's expired
+        $expiry = strtotime($reset['expires_at']);
+        $now = time();
 
-            // Update user password
-            $update_query = "UPDATE users SET password = ? WHERE email = ?";
-            $stmt = mysqli_prepare($conn, $update_query);
-            mysqli_stmt_bind_param($stmt, "ss", $new_password, $email);
-            mysqli_stmt_execute($stmt);
+        if ($now > $expiry) {
+            $error_msg = "This reset link has expired. (DB: " . $reset['expires_at'] . " | Current: " . date("Y-m-d H:i:s") . ")";
+        }
+        else {
+            // Token is valid!
+            if (isset($_POST['update_password'])) {
+                $new_password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+                $email = $reset['email'];
 
-            // Delete token
-            $delete_query = "DELETE FROM password_resets WHERE email = ?";
-            $stmt = mysqli_prepare($conn, $delete_query);
-            mysqli_stmt_bind_param($stmt, "s", $email);
-            mysqli_stmt_execute($stmt);
+                // Update user password
+                $update_query = "UPDATE users SET password = ? WHERE email = ?";
+                $stmt = mysqli_prepare($conn, $update_query);
+                mysqli_stmt_bind_param($stmt, "ss", $new_password, $email);
+                mysqli_stmt_execute($stmt);
 
-            header("Location: login.php?reset=success");
-            exit();
+                // Clean up: Delete used token
+                $delete_query = "DELETE FROM password_resets WHERE email = ?";
+                $stmt = mysqli_prepare($conn, $delete_query);
+                mysqli_stmt_bind_param($stmt, "s", $email);
+                mysqli_stmt_execute($stmt);
+
+                header("Location: login.php?reset=success");
+                exit();
+            }
         }
     }
     else {
-        die("Invalid or expired token.");
+        $error_msg = "Invalid token. No matching record found in database for: " . htmlspecialchars($token);
     }
 }
 else {
@@ -62,13 +73,23 @@ else {
     <div class="reset-card">
         <h3 class="text-center mb-4">Set New Password</h3>
         
-        <form action="reset_password.php?token=<?php echo $token; ?>" method="POST">
-            <div class="mb-3">
-                <label class="form-label">New Password</label>
-                <input type="password" name="password" class="form-control" required>
+        <?php if (isset($error_msg)): ?>
+            <div class="alert alert-danger text-center">
+                <?php echo $error_msg; ?>
+                <br>
+                <a href="forgot_password.php" class="btn btn-sm btn-outline-danger mt-2">Request New Link</a>
             </div>
-            <button type="submit" name="update_password" class="btn btn-primary-gradient w-100">Update Password</button>
-        </form>
+        <?php
+else: ?>
+            <form action="reset_password.php?token=<?php echo $token; ?>" method="POST">
+                <div class="mb-3">
+                    <label class="form-label">New Password</label>
+                    <input type="password" name="password" class="form-control" placeholder="Minimum 8 characters" required>
+                </div>
+                <button type="submit" name="update_password" class="btn btn-primary-gradient w-100">Update Password</button>
+            </form>
+        <?php
+endif; ?>
     </div>
 
 </body>

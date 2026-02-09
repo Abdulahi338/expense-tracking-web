@@ -40,23 +40,23 @@ endif; ?>
 
     <section class="py-5">
         <div class="container">
-            <div class="row text-center">
-                <div class="col-md-6">
-                    <div class="p-4 bg-white rounded shadow-sm">
+            <div class="row g-4 text-center">
+                <div class="col-md-4">
+                    <div class="p-4 bg-white rounded shadow-sm h-100">
                         <i class="bi bi-shield-check fs-1 text-primary"></i>
                         <h4 class="mt-3">Secure</h4>
                         <p class="text-muted">Password hashing and SQL injection protection.</p>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="p-4 bg-white rounded shadow-sm">
+                    <div class="p-4 bg-white rounded shadow-sm h-100">
                         <i class="bi bi-graph-up-arrow fs-1 text-primary"></i>
                         <h4 class="mt-3">Visual Insights</h4>
                         <p class="text-muted">Interactive charts to see your spending habits.</p>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="p-4 bg-white rounded shadow-sm">
+                    <div class="p-4 bg-white rounded shadow-sm h-100">
                         <i class="bi bi-moon-stars fs-1 text-primary"></i>
                         <h4 class="mt-3">Dark Mode</h4>
                         <p class="text-muted">Easy on the eyes, day or night.</p>

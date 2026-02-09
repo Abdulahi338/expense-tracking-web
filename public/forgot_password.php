@@ -16,20 +16,24 @@ if (isset($_POST['reset_request'])) {
 
     if (mysqli_num_rows($result) > 0) {
         $token = bin2hex(random_bytes(32));
-        $expires = date("Y-m-d H:i:s", strtotime("+1 hour"));
+        $expires = date("Y-m-d H:i:s", strtotime("+24 hours")); // Long expiry for development
 
-        // Save token to database
+        // Delete any old tokens for this email first
+        $clear_query = "DELETE FROM password_resets WHERE email = ?";
+        $stmt = mysqli_prepare($conn, $clear_query);
+        mysqli_stmt_bind_param($stmt, "s", $email);
+        mysqli_stmt_execute($stmt);
+
+        // Store the token in the dedicated table
         $insert_query = "INSERT INTO password_resets (email, token, expires_at) VALUES (?, ?, ?)";
         $stmt = mysqli_prepare($conn, $insert_query);
         mysqli_stmt_bind_param($stmt, "sss", $email, $token, $expires);
         mysqli_stmt_execute($stmt);
 
-        $reset_link = "http://localhost/expense-tracking/public/reset_password.php?token=" . $token;
+        $reset_link = "http://localhost/expense-tracking/expense-tracking-web/public/reset_password.php?token=" . $token;
 
-        // Normally send email here
-        // mail($email, "Password Reset", "Click here to reset: " . $reset_link);
-
-        $msg = "A reset link has been sent to your email (Simulated: <a href='$reset_link'>Click Here</a>)";
+        // Display the link directly for local development (PHPMailer bypassed)
+        $msg = "A reset link has been generated! (Develop Mode): <a href='$reset_link' class='fw-bold'>Click Here to Reset Password</a>";
     }
     else {
         $error = "No user found with that email.";

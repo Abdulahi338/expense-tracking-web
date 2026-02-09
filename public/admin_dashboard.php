@@ -93,6 +93,7 @@ $cats_res = mysqli_query($conn, "SELECT * FROM categories");
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel - FinanceTracker</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
@@ -104,12 +105,12 @@ $cats_res = mysqli_query($conn, "SELECT * FROM categories");
 
     <div class="main-content">
         <!-- Distinct Admin Header -->
-        <div class="header-gradient shadow-sm d-flex justify-content-between align-items-center">
-            <div>
+        <div class="header-gradient shadow-sm d-flex flex-column flex-md-row justify-content-between align-items-center">
+            <div class="mb-3 mb-md-0">
                 <h1 class="display-5 fw-bold mb-0">Admin Dashboard</h1>
                 <p class="lead mb-0">System-wide Management & Control Panel</p>
             </div>
-            <div class="text-end">
+            <div class="text-md-end">
                 <span class="badge bg-primary px-3 py-2 fs-6 shadow-sm">Administrator Access</span>
             </div>
         </div>
@@ -243,10 +244,5 @@ endwhile; ?>
         </div>
     </div>
 
-    <script>
-        if (localStorage.getItem('darkMode') === 'true') {
-            document.body.classList.add('dark-mode');
-        }
-    </script>
 </body>
 </html>

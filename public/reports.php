@@ -32,6 +32,7 @@ while ($row = mysqli_fetch_assoc($expense_data)) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reports - Expense Tracker</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
@@ -45,17 +46,21 @@ while ($row = mysqli_fetch_assoc($expense_data)) {
             <p>Detailed breakdown of your finances</p>
         </div>
 
-        <div class="row mt-4">
+        <div class="row mt-4 g-4">
             <div class="col-md-6">
-                <div class="card p-4 shadow-sm">
+                <div class="card p-4 shadow-sm h-100">
                     <h5>Income Sources</h5>
-                    <canvas id="incomeReportChart"></canvas>
+                    <div style="position: relative; height:300px;">
+                        <canvas id="incomeReportChart"></canvas>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="card p-4 shadow-sm">
+                <div class="card p-4 shadow-sm h-100">
                     <h5>Expense Categories</h5>
-                    <canvas id="expenseReportChart"></canvas>
+                    <div style="position: relative; height:300px;">
+                        <canvas id="expenseReportChart"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
@@ -73,7 +78,8 @@ while ($row = mysqli_fetch_assoc($expense_data)) {
                     data: <?php echo json_encode($income_values); ?>,
                     backgroundColor: '#28a745'
                 }]
-            }
+            },
+            options: { maintainAspectRatio: false }
         });
 
         // Expense Chart
@@ -86,12 +92,9 @@ while ($row = mysqli_fetch_assoc($expense_data)) {
                     data: <?php echo json_encode($expense_values); ?>,
                     backgroundColor: '#dc3545'
                 }]
-            }
+            },
+            options: { maintainAspectRatio: false }
         });
-
-        if (localStorage.getItem('darkMode') === 'true') {
-            document.body.classList.add('dark-mode');
-        }
     </script>
 </body>
 </html>

@@ -146,11 +146,5 @@ endwhile; ?>
         </div>
     </div>
 
-    <script>
-        // Dark Mode support
-        if (localStorage.getItem('darkMode') === 'true') {
-            document.body.classList.add('dark-mode');
-        }
-    </script>
 </body>
 </html>

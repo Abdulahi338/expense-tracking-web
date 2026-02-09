@@ -128,19 +128,6 @@ endif; ?>
             },
             options: { maintainAspectRatio: false }
         });
-
-        // Dark Mode Toggle Logic
-        const toggle = document.getElementById('darkModeToggle');
-        toggle.addEventListener('change', () => {
-            document.body.classList.toggle('dark-mode');
-            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
-        });
-
-        // Load Dark Mode Preference
-        if (localStorage.getItem('darkMode') === 'true') {
-            document.body.classList.add('dark-mode');
-            toggle.checked = true;
-        }
     </script>
 </body>
 </html>

@@ -1,9 +1,20 @@
 <?php
 // src/sidebar.php
 ?>
-<div class="sidebar d-flex flex-column p-3">
-    <h4 class="text-center mb-4 text-primary fw-bold">FinanceTracker</h4>
-    <hr>
+<!-- Mobile Header -->
+<div class="mobile-header">
+    <h4 class="m-0 text-white fw-bold">FinanceTracker</h4>
+    <button class="btn text-white fs-3 p-0" id="sidebarToggle">
+        <i class="bi bi-list"></i>
+    </button>
+</div>
+
+<!-- Sidebar Overlay -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="sidebar d-flex flex-column p-3" id="mainSidebar">
+    <h4 class="text-center mb-4 text-white fw-bold d-none d-lg-block">FinanceTracker</h4>
+    <hr class="d-none d-lg-block">
     <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
             <a href="dashboard.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'dashboard.php' ? 'active' : ''; ?>">
@@ -43,6 +54,24 @@ endif; ?>
 </div>
 
 <script>
+    // Sidebar Toggle Logic
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    const mainSidebar = document.getElementById('mainSidebar');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+    function toggleSidebar() {
+        mainSidebar.classList.toggle('active');
+        sidebarOverlay.classList.toggle('active');
+    }
+
+    if (sidebarToggle) {
+        sidebarToggle.addEventListener('click', toggleSidebar);
+    }
+
+    if (sidebarOverlay) {
+        sidebarOverlay.addEventListener('click', toggleSidebar);
+    }
+
     // Dark Mode Toggle Logic
     const toggle = document.getElementById('darkModeToggle');
     
